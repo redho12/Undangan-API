@@ -64,3 +64,12 @@ Route::middleware(AuthMiddleware::class)->group(function () {
         });
     });
 });
+
+Route::get('/test-db', function () {
+    try {
+        \DB::connection()->getPdo();
+        return response()->json(['status' => 'Database connected']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()]);
+    }
+});
